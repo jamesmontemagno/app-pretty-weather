@@ -3,6 +3,8 @@
 
 A very pretty weather application built with Xamarin.
 
+![weather gif](weather.gif)
+
 ## Built with
 * [Pancake View](https://github.com/sthewissen/Xamarin.Forms.PancakeView)
 * [Xamarin.Essentials](https://docs.microsoft.com/xamarin/essentials/)
