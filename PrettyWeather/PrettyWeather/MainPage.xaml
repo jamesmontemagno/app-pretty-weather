@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PrettyWeather.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:converters="clr-namespace:PrettyWeather.Converters"
+    xmlns:viewmodel="clr-namespace:PrettyWeather.ViewModel"
+    xmlns:model="clr-namespace:PrettyWeather.Model"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="WeatherPage"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewmodel:WeatherViewModel Temp="61"/>
+    </ContentPage.BindingContext>
+
+    <pancake:PancakeView BackgroundGradientStartColor="{Binding Temp, Converter={converters:BackgroundColorConverter IsStart=True}}"
+                         BackgroundGradientEndColor="{Binding Temp, Converter={converters:BackgroundColorConverter IsStart=False}}">
+        <Grid Padding="{OnPlatform Android='0,24,0,0', iOS='0,44,0,0'}"
+              RowSpacing="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label
+                HorizontalOptions="Center"
+                Text="SEATTLE" 
+                FontSize="Large"
+                TextColor="{StaticResource MainTextColor}"/>
+            <Image Grid.Row="1"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Opacity=".8"
+                   Source="spaceneedle.png"
+                   Margin="0,0,0,-80"/>
+
+            <Grid Grid.Row="2" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="1"
+                    Style="{StaticResource LabelTemperatureStyle}"
+                    Text="{Binding Temp}" />
+                <Label Grid.Column="2"
+                   Text="°"
+                   Style="{StaticResource LabelTemperatureStyle}"
+                   HorizontalOptions="Start"/>
+            </Grid>
+
+            <Label
+                Grid.Row="3"
+                HorizontalOptions="Center"
+                Text="SUNNY" 
+                FontSize="Large"
+                TextColor="{StaticResource MainTextColor}"/>
+            <Label
+                Grid.Row="4"
+                HorizontalOptions="Center"
+                Text="FRIDAY, SEPTEMBER 13" 
+                FontSize="Small"
+                TextColor="{StaticResource MainTextColor}"/>
+
+            <CollectionView Grid.Row="5" Margin="0,20" 
+                            HeightRequest="80" 
+                            VerticalOptions="End"
+                            ItemsLayout="HorizontalList">
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type model:DataItem}">
+                        <model:DataItem Name="Pressure" Value="10"/>
+                        <model:DataItem Name="UV Index" Value="3"/>
+                        <model:DataItem Name="Wind Speed" Value="0"/>
+                        <model:DataItem Name="Humidity" Value="65"/>
+                        <model:DataItem Name="Min Temp" Value="50"/>
+                        <model:DataItem Name="Max Temp" Value="80"/>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <pancake:PancakeView 
+                                CornerRadius="20,20,20,0" Padding="8" 
+                                BackgroundGradientStartColor="#98FFFFFF"
+                                BackgroundGradientEndColor="#60FFFFFF"
+                                BackgroundGradientAngle="315">
+                                <StackLayout Spacing="0"
+                                             VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Small" TextColor="White" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Value}"  TextColor="White" FontSize="Small" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </pancake:PancakeView>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </pancake:PancakeView>
+</ContentPage>
