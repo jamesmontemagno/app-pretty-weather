@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrettyWeather.Android", "Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrettyWeather.iOS", "PrettyWeather\PrettyWeather.iOS\PrettyWeather.iOS.csproj", "{AEACAE92-8FE2-4E58-8394-93ABF8B0DC64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrettyWeather", "PrettyWeather\PrettyWeather\PrettyWeather.csproj", "{4E4FEAE0-8558-41AB-89D2-8D2F2B3B96F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrettyWeather", "PrettyWeather\PrettyWeather\PrettyWeather.csproj", "{4E4FEAE0-8558-41AB-89D2-8D2F2B3B96F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2AFD45C7-271A-445D-B0E9-A495FCDF6590}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
