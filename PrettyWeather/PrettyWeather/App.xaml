@@ -19,6 +19,24 @@
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource MainTextColor}"/>
             </Style>
+            <OnPlatform
+                x:Key="SegMDL2"
+                x:TypeArguments="x:String"
+                Android="SegMDL2.ttf#Segoe MDL2 Assets"
+                iOS="Segoe MDL2 Assets"
+            />
+            <OnPlatform
+                x:Key="FontAwesome"
+                x:TypeArguments="x:String"
+                Android="fa-regular-400.ttf#Font Awesome 5 Free Regular"
+                iOS="Font Awesome 5 Free Regular"/>
+
+            <OnPlatform
+                x:Key="FontAwesomeSolid"
+                x:TypeArguments="x:String"
+                Android="fa-solid-900.ttf#Font Awesome 5 Free Solid"
+                iOS="Font Awesome 5 Free Solid"/>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

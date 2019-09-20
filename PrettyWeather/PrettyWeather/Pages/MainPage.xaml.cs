@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PrettyWeather.Services;
+using PrettyWeather.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +18,15 @@ namespace PrettyWeather
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var vm = BindingContext as WeatherViewModel;
+
+            vm?.InitializeWeather();
         }
     }
 }

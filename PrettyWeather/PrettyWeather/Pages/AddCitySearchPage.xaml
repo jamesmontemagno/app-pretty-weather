@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:PrettyWeather.ViewModel"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PrettyWeather.Pages.AddCitySearchPage" Shell.NavBarIsVisible="True">
+
+    <ContentPage.BindingContext>
+        <viewmodel:AddCitySearchViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <pancake:PancakeView BackgroundGradientStartColor="#ede574"
+                             BackgroundGradientEndColor="#e1f5c4">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Entry Placeholder="City name" Margin="15" 
+                       ReturnCommand="{Binding SearchCitiesCommand}"
+                       Text="{Binding CurrentSearchTerm}"/>
+
+                <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}">
+                    <CollectionView ItemsSource="{Binding CityResults}"
+                                    SelectedItem="{Binding SelectedCity}"
+                                    SelectionChangedCommand="{Binding CitySelectedCommand}"
+                                    SelectionMode="Single">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding CityName}" TextColor="#003973" FontSize="Title"
+                                       Padding="20" HeightRequest="75"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </Grid>
+        </pancake:PancakeView>
+
+    </ContentPage.Content>
+
+</ContentPage>

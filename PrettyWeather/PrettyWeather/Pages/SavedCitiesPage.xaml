@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodel="clr-namespace:PrettyWeather.ViewModel"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="PrettyWeather.Pages.SavedCitiesPage">
+
+    <ContentPage.BindingContext>
+        <viewmodel:SavedCitiesViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <pancake:PancakeView BackgroundGradientStartColor="#0f0c29"
+                         BackgroundGradientEndColor="#24243e">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <CollectionView ItemsSource="{Binding SavedCities}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedCity}"
+                                SelectionChangedCommand="{Binding SelectCityCommand}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin=".5">
+                                <pancake:PancakeView 
+                                             BackgroundGradientStartColor="#2c3e50" 
+                                             BackgroundGradientEndColor="#4ca1af" 
+                                             BackgroundGradientAngle="270">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding CityName}" TextColor="White" HeightRequest="100" FontSize="Title" 
+                                           VerticalTextAlignment="Center"
+                                           Padding="10,0"/>
+                                        <Label Text="" TextColor="White" HeightRequest="100" FontSize="Title" 
+                                           VerticalTextAlignment="Center" HorizontalTextAlignment="End" 
+                                           HorizontalOptions="EndAndExpand" Padding="0,0,10,0"/>
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                            <Label Text="Hit the + button to save some cities!" TextColor="White" FontSize="Subtitle" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+
+                <Image HorizontalOptions="EndAndExpand" Grid.Row="1" Margin="10">
+                    <Image.Source>
+                        <FontImageSource Size="25" FontFamily="{StaticResource SegMDL2}" Glyph="&#xE710;" Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddCityCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+        </pancake:PancakeView>
+    </ContentPage.Content>
+    
+</ContentPage>

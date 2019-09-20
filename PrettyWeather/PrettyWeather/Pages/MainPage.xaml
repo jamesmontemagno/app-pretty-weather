@@ -12,7 +12,7 @@
     x:Name="WeatherPage"
     mc:Ignorable="d">
     <ContentPage.BindingContext>
-        <viewmodel:WeatherViewModel Temp="61"/>
+        <viewmodel:WeatherViewModel Temp="61" />
     </ContentPage.BindingContext>
 
     <pancake:PancakeView BackgroundGradientStartColor="{Binding Temp, Converter={converters:BackgroundColorConverter IsStart=True}}"
@@ -27,18 +27,31 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label
                 HorizontalOptions="Center"
-                Text="SEATTLE" 
+                Text="{Binding CityName}" 
                 FontSize="Large"
                 TextColor="{StaticResource MainTextColor}"/>
-            <Image Grid.Row="1"
+
+            <!--<Image Grid.Row="1"
                    HorizontalOptions="FillAndExpand"
                    VerticalOptions="FillAndExpand"
                    Opacity=".8"
                    Source="spaceneedle.png"
-                   Margin="0,0,0,-80"/>
+                   Margin="0,0,0,-80"/>-->
+            <StackLayout Grid.Row="1" Padding="50">
+                <Image 
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Opacity="1"
+                   Margin="0,5,0,0">
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{Binding Icon, Converter={converters:CurrentConditionsIconConverter}}"/>
+                    </Image.Source>
+                </Image>
+            </StackLayout>
 
             <Grid Grid.Row="2" ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
@@ -49,7 +62,7 @@
                 <Label
                     Grid.Column="1"
                     Style="{StaticResource LabelTemperatureStyle}"
-                    Text="{Binding Temp}" />
+                    Text="{Binding Temp}"/>
                 <Label Grid.Column="2"
                    Text="°"
                    Style="{StaticResource LabelTemperatureStyle}"
@@ -59,30 +72,21 @@
             <Label
                 Grid.Row="3"
                 HorizontalOptions="Center"
-                Text="SUNNY" 
+                Text="{Binding Summary}" 
                 FontSize="Large"
                 TextColor="{StaticResource MainTextColor}"/>
             <Label
                 Grid.Row="4"
                 HorizontalOptions="Center"
-                Text="FRIDAY, SEPTEMBER 13" 
+                Text="{Binding CurrentDate}" 
                 FontSize="Small"
                 TextColor="{StaticResource MainTextColor}"/>
 
             <CollectionView Grid.Row="5" Margin="0,20" 
                             HeightRequest="80" 
                             VerticalOptions="End"
-                            ItemsLayout="HorizontalList">
-                <CollectionView.ItemsSource>
-                    <x:Array Type="{x:Type model:DataItem}">
-                        <model:DataItem Name="Pressure" Value="10"/>
-                        <model:DataItem Name="UV Index" Value="3"/>
-                        <model:DataItem Name="Wind Speed" Value="0"/>
-                        <model:DataItem Name="Humidity" Value="65"/>
-                        <model:DataItem Name="Min Temp" Value="50"/>
-                        <model:DataItem Name="Max Temp" Value="80"/>
-                    </x:Array>
-                </CollectionView.ItemsSource>
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding WeatherProperties}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
@@ -101,6 +105,15 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <Image Grid.Row="6" HorizontalOptions="End" Margin="0,0,10,5">
+                <Image.Source>
+                    <FontImageSource FontFamily="{StaticResource SegMDL2}" Glyph="&#xE8FD;"/>
+                </Image.Source>
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowSavedCitiesCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </pancake:PancakeView>
 </ContentPage>

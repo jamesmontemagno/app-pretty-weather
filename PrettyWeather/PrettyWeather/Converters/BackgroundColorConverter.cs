@@ -15,10 +15,10 @@ namespace PrettyWeather.Converters
 
                 var resources = Application.Current.Resources;
 
-                if (temp > 60)
+                if (temp > 75)
                     return IsStart ? resources["WarmStartColor"] : resources["WarmEndColor"];
 
-                if (temp == -100)
+                if (temp < 32)
                     return IsStart ? resources["NightStartColor"] : resources["NightEndColor"];
 
 
