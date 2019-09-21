@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PrettyWeather.Messaging;
@@ -31,8 +30,8 @@ namespace PrettyWeather.ViewModel
         {
             SearchableCities = new List<CityInfo>();
 
-            SearchableCities.Add(new CityInfo { CityName = "Seattle", State = "WA", Latitude = 0, Longitude = 0 });
-            SearchableCities.Add(new CityInfo { CityName = "Bellevue", State = "WA", Latitude = 41.61002, Longitude = -122.187 });
+            SearchableCities.Add(new CityInfo { CityName = "Seattle", State = "WA", Latitude = 47.62396, Longitude = -122.31882 });
+            SearchableCities.Add(new CityInfo { CityName = "Bellevue", State = "WA", Latitude = 47.61002, Longitude = -122.187 });
             SearchableCities.Add(new CityInfo { CityName = "Redmond", State = "WA", Latitude = 47.67858, Longitude = -122.13158 });
             SearchableCities.Add(new CityInfo { CityName = "Bellingham", State = "WA", Latitude = 48.75235, Longitude = -122.47122 });
             SearchableCities.Add(new CityInfo { CityName = "Vancouver", State = "BC", Latitude = 49.26038, Longitude = -123.11336 });

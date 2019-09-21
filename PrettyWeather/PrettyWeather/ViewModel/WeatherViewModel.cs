@@ -10,7 +10,6 @@ using PrettyWeather.Messaging;
 using PrettyWeather.Pages;
 using Xamarin.Forms;
 
-using AsyncAwaitBestPractices;
 using PrettyWeather.Services;
 using PrettyWeather.Model;
 using Xamarin.Essentials;

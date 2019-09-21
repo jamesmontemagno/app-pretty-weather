@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Microsoft.AppCenter.Data;
-
+using Newtonsoft.Json;
 using PrettyWeather.Model;
-using Microsoft.AppCenter;
+
 
 namespace PrettyWeather.Services
 {
@@ -16,16 +15,6 @@ namespace PrettyWeather.Services
         static HttpClient httpClient = new HttpClient();
 
         readonly string functionsUrl = "https://prettyweather.azurewebsites.net/api/GetCurrentConditions";
-        public async Task< List<CityInfo>> SearchForCities(string searchText)
-        {
-            var cityInfo = new List<CityInfo>
-            {
-                new CityInfo{ CityName="Seattle", State="WA"},
-                new CityInfo{ CityName="Madison", State="WI"}
-            };
-
-            return await Task.FromResult(cityInfo);
-        }
 
         public async Task<WeatherInfo> GetWeatherInfo(double latitude, double longitude)
         {
@@ -43,6 +32,30 @@ namespace PrettyWeather.Services
             }
 
             return null;
+        }
+
+        public async Task<IEnumerable<CityInfo>> GetSavedCities()
+        {
+            var allSavedCities = new List<CityInfo>();
+
+            var savedCitiesFromCosmos = await Data.ListAsync<CityInfo>(DefaultPartitions.UserDocuments);
+
+            allSavedCities.AddRange(savedCitiesFromCosmos.CurrentPage.Items.Select(ci => ci.DeserializedValue));
+
+            while (savedCitiesFromCosmos.HasNextPage)
+            {
+                await savedCitiesFromCosmos.GetNextPageAsync();
+
+                allSavedCities.AddRange(savedCitiesFromCosmos.CurrentPage.Items.Select(ci => ci.DeserializedValue));
+            }
+
+            return allSavedCities;
+        }
+
+        public async Task SaveCity(CityInfo city)
+        {
+            await Data.CreateAsync<CityInfo>($"{city.CityName}-{city.State}", city,
+                DefaultPartitions.UserDocuments);
         }
 
     }

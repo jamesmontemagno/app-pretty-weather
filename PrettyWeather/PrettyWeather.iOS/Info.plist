@@ -45,7 +45,7 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>msal</string>
+				<string>msal6d9ef07b-2066-4dc1-ad60-972e53896c42</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>

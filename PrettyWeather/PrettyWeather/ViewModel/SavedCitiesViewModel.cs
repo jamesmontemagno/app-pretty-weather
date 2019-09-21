@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PrettyWeather.Messaging;
 using PrettyWeather.Model;
 using PrettyWeather.Pages;
-using Xamarin.Essentials;
 using Xamarin.Forms;
-using Microsoft.AppCenter.Data;
-using System.Linq;
+using PrettyWeather.Services;
 
 namespace PrettyWeather.ViewModel
 {
@@ -23,20 +20,24 @@ namespace PrettyWeather.ViewModel
 
         public ObservableCollection<CityInfo> SavedCities { get; set; }
 
+        DataService dataSvc;
+
         public SavedCitiesViewModel()
         {
+            dataSvc = new DataService();
+
             AddCityCommand = new Command(async () => await ExecuteAddCityCommand());
             SelectCityCommand = new Command(async () => await ExecuteSelectCityCommand());
 
             SavedCities = new ObservableCollection<CityInfo>();
 
             MessagingCenter.Subscribe<SearchCitySelectedMessage>(this, SearchCitySelectedMessage.Message,
-                (msg) =>
+                async (msg) =>
                 {
                     SavedCities.Add(msg.SelectedCity);
 
                     // Add the city to Cosmos
-                    Data.CreateAsync<CityInfo>($"{msg.SelectedCity.CityName}-{msg.SelectedCity.State}", msg.SelectedCity, DefaultPartitions.UserDocuments);
+                    await dataSvc.SaveCity(msg.SelectedCity);
                 });
         }
 
@@ -44,13 +45,13 @@ namespace PrettyWeather.ViewModel
         {
             if (!initialized)
             {
-                var savedCitiesFromCosmos = await Data.ListAsync<CityInfo>(DefaultPartitions.UserDocuments);
+                var savedCities = await dataSvc.GetSavedCities();
 
-                foreach (var city in savedCitiesFromCosmos.CurrentPage.Items)
+                foreach (var city in savedCities)
                 {
-                    SavedCities.Add(city.DeserializedValue);
+                    SavedCities.Add(city);
                 }
-
+                
                 initialized = true;
             }
         }
@@ -69,7 +70,6 @@ namespace PrettyWeather.ViewModel
             await Shell.Current.Navigation.PopModalAsync();
         }
 
-
         public ICommand AddCityCommand { get; }
         public ICommand SelectCityCommand { get; }
 
@@ -84,7 +84,6 @@ namespace PrettyWeather.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedCity)));
             }
         }
-
 
     }
 }

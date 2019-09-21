@@ -10,8 +10,8 @@ namespace PrettyWeather
 {
     public partial class App : Application
     {
-        readonly string iOSAppCenter = "";
-        readonly string androidAppCenter = "";
+        readonly string iOSAppCenter = "6d9ef07b-2066-4dc1-ad60-972e53896c42";
+        readonly string androidAppCenter = "c61a8375-ba75-4b0a-85ae-f1cb6b2b4af3";
 
         public App()
         {
