@@ -58,6 +58,14 @@ namespace PrettyWeather.ViewModel
 
             await Task.Delay(250);
 
+            if (CurrentSearchTerm.ToUpper() == "signout".ToUpper())
+            {
+                Microsoft.AppCenter.Auth.Auth.SignOut();
+                IsRefreshing = false;
+                await Shell.Current.Navigation.PopModalAsync();
+                return;
+            }
+
             var matchingCities = SearchableCities.FindAll(ci => ci.CityName.ToUpper().Contains(CurrentSearchTerm.ToUpper()));
 
             CityResults.Clear();

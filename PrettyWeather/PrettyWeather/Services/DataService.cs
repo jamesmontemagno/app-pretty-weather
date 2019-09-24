@@ -54,8 +54,15 @@ namespace PrettyWeather.Services
 
         public async Task SaveCity(CityInfo city)
         {
-            await Data.CreateAsync<CityInfo>($"{city.CityName}-{city.State}", city,
-                DefaultPartitions.UserDocuments);
+            try
+            {
+                await Data.CreateAsync<CityInfo>($"{city.CityName.Replace(" ",string.Empty)}-{city.State}", city,
+                    DefaultPartitions.UserDocuments);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex);
+            }
         }
 
     }

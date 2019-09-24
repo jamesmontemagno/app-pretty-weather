@@ -23,9 +23,9 @@ namespace PrettyWeather.Functions
             double latitude = double.Parse(req.Query["lat"]);
             double longitude = double.Parse(req.Query["long"]);
 
-            var key = Environment.GetEnvironmentVariable("DarkSkyKey");
-            var baseUrl = Environment.GetEnvironmentVariable("DarkSkyUrl");
-            var excludeParams = Environment.GetEnvironmentVariable("DarkSkyParams");
+            var key = Environment.GetEnvironmentVariable("WeatherKey");
+            var baseUrl = Environment.GetEnvironmentVariable("WeatherUrl");
+            var excludeParams = Environment.GetEnvironmentVariable("WeatherParams");
 
             // Make a request to the Darksky API
             var weatherJson = await client.GetStringAsync($"{baseUrl}/{key}/{latitude},{longitude}?{excludeParams}");
