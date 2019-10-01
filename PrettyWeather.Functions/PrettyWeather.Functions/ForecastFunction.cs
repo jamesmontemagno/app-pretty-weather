@@ -27,7 +27,7 @@ namespace PrettyWeather.Functions
             var baseUrl = Environment.GetEnvironmentVariable("WeatherUrl");
             var excludeParams = Environment.GetEnvironmentVariable("WeatherParams");
 
-            // Make a request to the Darksky API
+            // Make a request to the API
             var weatherJson = await client.GetStringAsync($"{baseUrl}/{key}/{latitude},{longitude}?{excludeParams}");
 
             var weatherData = JsonConvert.DeserializeObject<WeatherConditions>(weatherJson);
