@@ -7,7 +7,7 @@ A very pretty weather application built with Xamarin.
 
 ## Built with
 * [Pancake View](https://github.com/sthewissen/Xamarin.Forms.PancakeView)
-* [Xamarin.Essentials](https://docs.microsoft.com/xamarin/essentials/?WT.mc_id=appprettyweather-github-jamont)
+* [Xamarin.Essentials](https://docs.microsoft.com/xamarin/essentials/?WT.mc_id=friends-0000-jamont)
 * [Xamarin.Forms](http://xamarin.com/forms)
 
 
