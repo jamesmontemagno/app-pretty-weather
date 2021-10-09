@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PrettyWeather.ViewModel;
 using Xamarin.Forms;
 
 namespace PrettyWeather
@@ -13,9 +14,15 @@ namespace PrettyWeather
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        Random random = new Random();
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        void TapGestureRecognizer_Tapped(System.Object sender, System.EventArgs e)
+        {
+            ((WeatherViewModel)BindingContext).Temp = (int)random.Next(0, 110);
         }
     }
 }

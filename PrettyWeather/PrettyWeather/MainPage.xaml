@@ -15,8 +15,13 @@
         <viewmodel:WeatherViewModel Temp="61"/>
     </ContentPage.BindingContext>
 
-    <pancake:PancakeView BackgroundGradientStartColor="{Binding Temp, Converter={converters:BackgroundColorConverter IsStart=True}}"
-                         BackgroundGradientEndColor="{Binding Temp, Converter={converters:BackgroundColorConverter IsStart=False}}">
+    <pancake:PancakeView>
+        <pancake:PancakeView.BackgroundGradientStops>
+            <pancake:GradientStopCollection>
+                <pancake:GradientStop Color="{Binding Temp, Converter={converters:BackgroundColorConverter IsStart=True}}" Offset="0"/>
+                <pancake:GradientStop Color="{Binding Temp, Converter={converters:BackgroundColorConverter IsStart=False}}" Offset="1"/>
+            </pancake:GradientStopCollection>
+        </pancake:PancakeView.BackgroundGradientStops>
         <Grid Padding="{OnPlatform Android='0,24,0,0', iOS='0,44,0,0'}"
               RowSpacing="0">
 
@@ -49,7 +54,11 @@
                 <Label
                     Grid.Column="1"
                     Style="{StaticResource LabelTemperatureStyle}"
-                    Text="{Binding Temp}" />
+                    Text="{Binding Temp}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Grid.Column="2"
                    Text="°"
                    Style="{StaticResource LabelTemperatureStyle}"
@@ -87,10 +96,13 @@
                     <DataTemplate>
                         <Grid Padding="10">
                             <pancake:PancakeView 
-                                CornerRadius="20,20,20,0" Padding="8" 
-                                BackgroundGradientStartColor="#98FFFFFF"
-                                BackgroundGradientEndColor="#60FFFFFF"
-                                BackgroundGradientAngle="315">
+                                CornerRadius="20,20,20,0" Padding="8">
+                                <pancake:PancakeView.BackgroundGradientStops>
+                                    <pancake:GradientStopCollection >
+                                        <pancake:GradientStop Color="#98FFFFFF" Offset="0"/>
+                                        <pancake:GradientStop Color="#60FFFFFF" Offset="1"/>
+                                    </pancake:GradientStopCollection>
+                                </pancake:PancakeView.BackgroundGradientStops>
                                 <StackLayout Spacing="0"
                                              VerticalOptions="Center">
                                     <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Small" TextColor="White" HorizontalOptions="Center"/>

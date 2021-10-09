@@ -1,12 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace PrettyWeather.ViewModel
 {
-    public class WeatherViewModel
+    public class WeatherViewModel : BindableObject
     {
-        public int Temp { get; set;  }
+        int temp = 0;
+        public int Temp
+        {
+            get => temp;
+            set
+            {
+                temp = value;
+                OnPropertyChanged();
+            }
+        }
+
         public WeatherViewModel()
         {
         }
